@@ -11,6 +11,10 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
+const usersRouter = require('./routes/handler/users');
+
 app.get('/', (req, res) => {
     res.json('JajanJalan REST API');
 });
+
+app.use('/users', usersRouter);
