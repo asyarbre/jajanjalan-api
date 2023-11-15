@@ -11,6 +11,10 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
+//middleware
+const verifyToken = require('./middlewares/verifyToken');
+const permission = require('./middlewares/permission');
+
 const usersRouter = require('./routes/handler/users');
 
 app.get('/', (req, res) => {
