@@ -28,7 +28,7 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user.id }, JWT_SECRET_ACCESS_TOKEN, {
+    const token = jwt.sign({ id: user.id, email: user.email, name: user.name, role:user.role }, JWT_SECRET_ACCESS_TOKEN, {
       expiresIn: JWT_ACCESS_TOKEN_EXPIRED,
     });
 
