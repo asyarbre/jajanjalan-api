@@ -13,10 +13,6 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'asia-southeast2-docker.pkg.dev/$PROJECT_ID/my-docker-repo/my-image']
 
-  # Configure Docker for Artifact Registry using gcloud
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['auth', 'configure-docker', 'asia-southeast2-docker.pkg.dev']
-
   # Deploy to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
