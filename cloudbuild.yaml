@@ -37,7 +37,7 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     entrypoint: npx
     env:
-     - DATABASE_URL=mysql://root:rahasia123@34.101.122.161:3306/jajanjalandb?host=/cloudsql/jajanjalan-server:asia-southeast2:jajanjalan-database
+     - DATABASE_URL=mysql://root:rahasia123@34.101.122.161:3306/jajanjalandb
     args:
       - 'prisma'
       - 'migrate'
