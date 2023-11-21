@@ -24,6 +24,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   penjual   Penjual?
+  review    Review[]
 }
 
 model Penjual {
@@ -45,6 +46,19 @@ model Menu {
   item      String
   price     Int
   image     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  review    Review[]
+}
+
+model Review {
+  id        Int        @id @default(autoincrement())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String
+  menu      Menu       @relation(fields: [menuId], references: [id])
+  menuId    Int
+  rating    Decimal?
+  comment   String?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
