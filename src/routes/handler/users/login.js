@@ -2,10 +2,21 @@ const prisma = require("../../../utils/db");
 const bcrypt = require("bcrypt");
 const { JWT_SECRET_ACCESS_TOKEN, JWT_ACCESS_TOKEN_EXPIRED } = process.env;
 const jwt = require("jsonwebtoken");
+const { validateLogin } = require("../../../validations/user.validation");
 
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    
+    //validate data
+    const { error } = validateLogin(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: "error",
+        message: error.message,
+      });
+    }
+    
     const user = await prisma.user.findUnique({
       where: {
         email,

@@ -1,9 +1,30 @@
 const prisma = require("../../../utils/db");
 const bcrypt = require("bcrypt");
+const { validateRegister } = require("../../../validations/user.validation");
 
 const register = async (req, res) => {
   try {
     const { email, name, password, role } = req.body;
+
+    //validate data
+    const { error } = validateRegister(req.body);
+    if (error) {
+      return res.status(400).json({
+        error: error.message,
+      });
+    }
+
+    const checkEmail = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (checkEmail) {
+      return res.status(400).json({
+        error: "Email already registered",
+      });
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
