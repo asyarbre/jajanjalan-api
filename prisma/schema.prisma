@@ -33,4 +33,16 @@ model Penjual {
   name     String?    
   address  String?     
   phone    String?
+  menu     Menu[]
+}
+
+model Menu {
+  id        Int        @id @default(autoincrement())
+  penjual   Penjual    @relation(fields: [penjualId], references: [id])
+  penjualId Int
+  item      String
+  price     Int
+  image     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
