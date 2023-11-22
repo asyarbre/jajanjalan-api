@@ -16,9 +16,11 @@ const verifyToken = require('./middlewares/verifyToken');
 const permission = require('./middlewares/permission');
 
 const usersRouter = require('./routes/handler/users');
+const penjualRouter = require('./routes/handler/penjual');
 
 app.get('/', (req, res) => {
     res.json('JajanJalan REST API');
 });
 
 app.use('/users', usersRouter);
+app.use('/penjual', penjualRouter);
