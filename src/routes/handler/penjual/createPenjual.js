@@ -1,4 +1,5 @@
 const prisma = require("../../../utils/db");
+const { validatePenjual } = require("../../../validations/penjual.validation");
 
 const createPenjual = async (req, res) => {
   try {
@@ -14,6 +15,14 @@ const createPenjual = async (req, res) => {
       return res.status(400).json({
         status: "error",
         message: "Penjual already exists",
+      });
+    }
+
+    const { error } = validatePenjual(req.body);
+    if (error) {
+      return res.status(400).json({
+        status: "error",
+        message: error.message,
       });
     }
 
