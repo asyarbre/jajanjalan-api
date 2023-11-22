@@ -15,8 +15,8 @@ app.listen(port, () => {
 const verifyToken = require('./middlewares/verifyToken');
 const permission = require('./middlewares/permission');
 
-const usersRouter = require('./routes/handler/users');
-const penjualRouter = require('./routes/handler/penjual');
+const usersRouter = require('./routes/users');
+const penjualRouter = require('./routes/penjual');
 
 app.get('/', (req, res) => {
     res.json('JajanJalan REST API');
