@@ -19,6 +19,7 @@ CREATE TABLE `Menu` (
     `item` VARCHAR(191) NOT NULL,
     `price` INTEGER NOT NULL,
     `image` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -29,8 +30,9 @@ CREATE TABLE `Menu` (
 CREATE TABLE `Review` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` VARCHAR(191) NOT NULL,
+    `penjualId` INTEGER NOT NULL,
     `menuId` INTEGER NOT NULL,
-    `rating` DECIMAL(65, 30) NULL,
+    `rating` DECIMAL(2, 1) NOT NULL,
     `comment` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -46,6 +48,9 @@ ALTER TABLE `Menu` ADD CONSTRAINT `Menu_penjualId_fkey` FOREIGN KEY (`penjualId`
 
 -- AddForeignKey
 ALTER TABLE `Review` ADD CONSTRAINT `Review_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Review` ADD CONSTRAINT `Review_penjualId_fkey` FOREIGN KEY (`penjualId`) REFERENCES `Penjual`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Review` ADD CONSTRAINT `Review_menuId_fkey` FOREIGN KEY (`menuId`) REFERENCES `Menu`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
