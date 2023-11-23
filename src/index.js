@@ -26,6 +26,7 @@ const permission = require('./middlewares/permission');
 const usersRouter = require('./routes/users');
 const penjualRouter = require('./routes/penjual');
 const menuRouter = require('./routes/menu');
+const reviewRouter = require('./routes/reviews');
 
 app.get('/', (req, res) => {
     res.json('JajanJalan REST API');
@@ -34,3 +35,4 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter);
 app.use('/penjual', penjualRouter);
 app.use('/menu', menuRouter);
+app.use('/review', reviewRouter);
