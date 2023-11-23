@@ -1,9 +1,9 @@
 const { Storage } = require("@google-cloud/storage");
-const path = require("path");
+const serviceAccount = require("./serviceAccount");
 
 const storage = new Storage({
   projectId: "jajanjalan-server",
-  keyFilename: path.join(__dirname, "./jajanjalan-server-4c867ca0f164.json"),
+  credentials: serviceAccount,
 });
 
 module.exports = storage;

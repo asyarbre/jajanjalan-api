@@ -34,8 +34,8 @@ const updateMenu = async (req, res) => {
     }
 
     const bucketName = "jajanjalan-storage";
-    const fileName = `${Date.now()}_${path.basename(image.originalname)}`;
-    const file = storage.bucket(bucketName).file(`images/${fileName}`);
+    const fileName = `menu-${Date.now()}${path.extname(image.originalname)}`;
+    const file = storage.bucket(bucketName).file(`images/menu/${fileName}`);
 
     const fileStream = file.createWriteStream({
       metadata: {
@@ -49,7 +49,7 @@ const updateMenu = async (req, res) => {
     });
 
     fileStream.on("finish", async () => {
-      const imageUrl = `https://storage.googleapis.com/${bucketName}/images/${fileName}`;
+      const imageUrl = `https://storage.googleapis.com/${bucketName}/images/menu/${fileName}`;
 
       const updatedMenu = await prisma.menu.update({
         where: {
@@ -76,6 +76,6 @@ const updateMenu = async (req, res) => {
       error: "Internal server error",
     });
   }
-}
+};
 
 module.exports = updateMenu;
