@@ -6,6 +6,16 @@ const createReview = async (req, res) => {
     const { rating, comment, menu_id } = req.body;
     const userId = req.userData.id;
 
+    //find penjualId by menuId
+    const penjual_id = await prisma.menu.findUnique({
+      where: {
+        id: menu_id,
+      },
+      select: {
+        penjualId: true,
+      },
+    });
+    
     const checkMenu = await prisma.menu.findUnique({
       where: {
         id: menu_id,
@@ -35,6 +45,7 @@ const createReview = async (req, res) => {
       data: {
         userId,
         menuId: menu_id,
+        penjualId: penjual_id.penjualId,
         rating,
         comment,
       },
