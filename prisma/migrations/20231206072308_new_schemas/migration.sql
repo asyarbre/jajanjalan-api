@@ -20,6 +20,8 @@ CREATE TABLE `Penjual` (
     `name` VARCHAR(191) NULL,
     `address` VARCHAR(191) NULL,
     `phone` VARCHAR(191) NULL,
+    `lat` DOUBLE NULL,
+    `lon` DOUBLE NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

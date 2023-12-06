@@ -3,7 +3,7 @@ const { validatePenjual } = require("../../../validations/penjual.validation");
 
 const createPenjual = async (req, res) => {
   try {
-    const { name, address, phone } = req.body;
+    const { name, address, phone, lat, lon } = req.body;
     const userId = req.userData.id;
 
     const checkPenjual = await prisma.penjual.findUnique({
@@ -31,6 +31,8 @@ const createPenjual = async (req, res) => {
         name,
         address,
         phone,
+        lat,
+        lon,
         userId,
       },
     });

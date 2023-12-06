@@ -29,41 +29,43 @@ model User {
 }
 
 model Penjual {
-  id       Int        @id @default(autoincrement())
-  user     User       @relation(fields: [userId], references: [id])
-  userId   String     @unique
-  name     String?    
-  address  String?     
-  phone    String?
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  name      String?
+  address   String?
+  phone     String?
+  lat       Float?
+  lon       Float?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  menu     Menu[]
-  review   Review[]
-}
-
-model Menu {
-  id        Int        @id @default(autoincrement())
-  penjual   Penjual    @relation(fields: [penjualId], references: [id])
-  penjualId Int
-  item      String
-  price     Int
-  image     String
-  description String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  menu      Menu[]
   review    Review[]
 }
 
+model Menu {
+  id          Int      @id @default(autoincrement())
+  penjual     Penjual  @relation(fields: [penjualId], references: [id])
+  penjualId   Int
+  item        String
+  price       Int
+  image       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  review      Review[]
+}
+
 model Review {
-  id        Int        @id @default(autoincrement())
-  user      User       @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
   userId    String
-  penjual   Penjual    @relation(fields: [penjualId], references: [id])
+  penjual   Penjual  @relation(fields: [penjualId], references: [id])
   penjualId Int
-  menu      Menu       @relation(fields: [menuId], references: [id])
+  menu      Menu     @relation(fields: [menuId], references: [id])
   menuId    Int
-  rating    Decimal    @db.Decimal(2,1)
+  rating    Decimal  @db.Decimal(2, 1)
   comment   String?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
