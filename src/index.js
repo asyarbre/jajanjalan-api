@@ -27,6 +27,7 @@ const usersRouter = require('./routes/users');
 const penjualRouter = require('./routes/penjual');
 const menuRouter = require('./routes/menu');
 const reviewRouter = require('./routes/reviews');
+const recomendationRouter = require('./routes/recomendation');
 
 app.get('/', (req, res) => {
     res.json('JajanJalan REST API');
@@ -36,3 +37,4 @@ app.use('/users', usersRouter);
 app.use('/penjual', penjualRouter);
 app.use('/menu', menuRouter);
 app.use('/review', reviewRouter);
+app.use('/recomendation', recomendationRouter);
