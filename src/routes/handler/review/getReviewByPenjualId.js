@@ -18,18 +18,23 @@ const getReviewByPenjualId = async (req, res) => {
         penjualId: parseInt(req.params.id),
       },
       include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
+        penjual: {},
       },
     });
 
     res.json({
       message: "Review found",
-      data: review,
+      data: review.map((item) => {
+        return {
+          id: item.id,
+          userId: item.userId,
+          penjualId: item.penjualId,
+          penjual_name: item.penjual.name,
+          user: item.user,
+          rating: item.rating,
+          comment: item.comment,
+        };
+      }),
     });
   } catch (error) {
     res.status(500).json({
