@@ -6,6 +6,8 @@ const penjualSchema = Joi.object({
   name: Joi.string().required(),
   address: Joi.string().required(),
   phone: Joi.string().required(),
+  lat: Joi.number().required(),
+  lon: Joi.number().required(),
 });
 
 exports.validatePenjual = validator(penjualSchema);
