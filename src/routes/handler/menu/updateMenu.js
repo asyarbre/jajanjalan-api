@@ -29,29 +29,54 @@ const updateMenu = async (req, res) => {
 
     if (menu.penjualId !== penjualId.id) {
       return res.status(403).json({
-        error: "Forbidden",
+        error: "Forbidden access, this menu is not yours",
       });
     }
 
     const bucketName = "jajanjalan-storage";
-    const fileName = `menu-${Date.now()}${path.extname(image.originalname)}`;
-    const file = storage.bucket(bucketName).file(`images/menu/${fileName}`);
+    let imageUrl = null;
 
-    const fileStream = file.createWriteStream({
-      metadata: {
-        contentType: image.mimetype,
-      },
-    });
+    if (image) {
+      const fileName = `menu-${Date.now()}${path.extname(image.originalname)}`;
+      const file = storage.bucket(bucketName).file(`images/menu/${fileName}`);
 
-    fileStream.on("error", (err) => {
-      console.error("Error uploading image:", err);
-      res.status(500).json({ error: "Failed to upload image" });
-    });
+      const fileStream = file.createWriteStream({
+        metadata: {
+          contentType: image.mimetype,
+        },
+      });
 
-    fileStream.on("finish", async () => {
-      const imageUrl = `https://storage.googleapis.com/${bucketName}/images/menu/${fileName}`;
+      fileStream.on("error", (err) => {
+        console.error("Error uploading image:", err);
+        res.status(500).json({ error: "Failed to upload image" });
+      });
 
-      const updatedMenu = await prisma.menu.update({
+      fileStream.on("finish", async () => {
+        imageUrl = `https://storage.googleapis.com/${bucketName}/images/menu/${fileName}`;
+
+        const menu = await prisma.menu.update({
+          where: {
+            id: menuId,
+          },
+          data: {
+            item,
+            price: parseInt(price),
+            description,
+            image: imageUrl,
+          },
+        });
+
+        res.status(201).json({
+          status: "success",
+          data: {
+            menu,
+          },
+        });
+      });
+
+      fileStream.end(image.buffer);
+    } else {
+      const menu = await prisma.menu.update({
         where: {
           id: menuId,
         },
@@ -59,17 +84,16 @@ const updateMenu = async (req, res) => {
           item,
           price: parseInt(price),
           description,
-          image: imageUrl,
         },
       });
 
-      res.json({
-        message: "Menu updated",
-        data: updatedMenu,
+      res.status(201).json({
+        status: "success",
+        data: {
+          menu,
+        },
       });
-    });
-
-    fileStream.end(image.buffer);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
