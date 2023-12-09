@@ -29,18 +29,20 @@ model User {
 }
 
 model Penjual {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
-  name      String?
-  address   String?
-  phone     String?
-  lat       Float?
-  lon       Float?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  menu      Menu[]
-  review    Review[]
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @unique
+  name        String?
+  address     String?
+  phone       String?
+  lat         Float?
+  lon         Float?
+  isOpen      Boolean  @default(false)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  menu        Menu[]
+  review      Review[]
 }
 
 model Menu {
