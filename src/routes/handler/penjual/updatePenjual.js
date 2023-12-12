@@ -2,7 +2,7 @@ const prisma = require("../../../utils/db");
 
 const updatePenjual = async (req, res) => {
   try {
-    const { name, address, phone, lat, lon } = req.body;
+    const { name, address, phone, lat, lon, isOpen, description } = req.body;
     const userId = req.userData.id;
     const penjualId = parseInt(req.params.id);
 
@@ -36,6 +36,8 @@ const updatePenjual = async (req, res) => {
         phone,
         lat,
         lon,
+        isOpen,
+        description,
       },
     });
 
