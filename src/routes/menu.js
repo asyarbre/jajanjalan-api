@@ -8,9 +8,11 @@ const getMenuByPenjualId = require("./handler/menu/getMenuByPenjualId");
 const deleteMenu = require("./handler/menu/deleteMenu");
 const updateMenu = require("./handler/menu/updateMenu");
 const getAllMenu = require("./handler/menu/getAllMenu");
+const searchMenu = require("./handler/menu/searchMenu");
 
 router.post("/create", verifyToken, permission('penjual'), createMenu);
 router.get('/', getAllMenu);
+router.get("/search", searchMenu);
 router.get("/:id", getMenuById);
 router.get("/penjual/:id", getMenuByPenjualId);
 router.patch("/:id", verifyToken, permission('penjual'), updateMenu);
