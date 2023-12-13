@@ -8,6 +8,7 @@ const penjualSchema = Joi.object({
   phone: Joi.string().required(),
   lat: Joi.number().required(),
   lon: Joi.number().required(),
+  description: Joi.string().required(),
 });
 
 exports.validatePenjual = validator(penjualSchema);
