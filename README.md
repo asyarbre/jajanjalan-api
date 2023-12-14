@@ -23,6 +23,16 @@
       <li><a href="#cicd-environment">CI/CD Environment</a></li>
     </ul>
   </li>
+ <li>
+    <a href="#getting-started">Getting Started</a>
+    <ul>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#setup-and-installation">Setup and Installation</a></li>
+    </ul>
+ </li>
+ <li><a href="#usage">Usage</a></li>
+ <li><a href="#contact">Contact</a></li>
+ <li><a href="#association">Association</a></li>
 </ol>
 <!-- ABOUT THE PROJECT -->
 
@@ -44,3 +54,42 @@ For the CI/CD Environment, we use Cloud Build with push trigger. When a revision
 1. Cloud Build : To create a trigger
 1. Artifact Registry: For the docker images repository
 1. Cloud Run: To run the application
+
+## Getting Started
+Getting started, do follow the steps below thoroughly and carefully. Make sure all the prerequisities and installations are done correctly according to
+
+### Prerequisites
+Before getting started, make sure that NPM is already up to date.
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+### Setup and installation
+#### 1. Install packages
+```sh
+$ npm install
+```
+
+#### 2. Setup env files
+Several `.env.template` files have been created for you. Create your own `.env` to be used in your project. Adjust the needed values accordingly.
+
+#### 3. Prisma Migrate
+Create a Prisma migration to sync changes in your `schema.prisma` to your database.
+```sh
+$ npx prisma migrate deploy
+```
+
+#### 4. Running
+```sh
+$ npm run dev
+```
+
+## Usage
+REST API is used for JajanJalan Application front-end
+
+## Contact
+- Asya'ri - [LinkedIn](https://www.linkedin.com/in/asyari1)
+- Project Link: [https://github.com/asyarbre/jajanjalan-api](https://github.com/asyarbre/jajanjalan-api)
+
+## Association
+- [Bangkit](https://grow.google/intl/id_id/bangkit)
