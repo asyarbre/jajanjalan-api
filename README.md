@@ -31,6 +31,7 @@
     </ul>
  </li>
  <li><a href="#usage">Usage</a></li>
+ <li><a href="#api-endpoints">API Endpoints</a></li>
  <li><a href="#contact">Contact</a></li>
  <li><a href="#association">Association</a></li>
 </ol>
@@ -40,10 +41,16 @@
 This is the back-end service repository for JajanJalan. These services provide the functionality and logic required to support the front-end of the JajanJalan application. These back-end services are responsible for handling tasks such as data storage, processing, and retrieval, as well as providing APIs to interact with the front-end.
 
 ### Built With
-- NPM
-- ExpressJs
-- Prisma
-- MySQL
+- **ExpressJs**: Framework [ExpressJS](https://expressjs.com)
+- **Prisma**: Object Relational Mapping [Prisma](https://www.prisma.io)
+- **MySQL**: Relational Databases
+- **Validation**: Request data validation using [Joi](https://github.com/hapijs/joi)
+- **Dotenv**: Environment variables access [dotenv](https://www.npmjs.com/package/dotenv)
+- **Jsonwebtoken**: JSON Web Tokens [jwt](https://jwt.io)
+- **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
+- **Multer**: File request handler [multer](https://www.npmjs.com/package/multer)
+- **CI**: Continuous Integration with [Cloud Build](https://cloud.google.com/build)
+- **Docker**: Containerization with [Docker](https://www.docker.com)
 
 ### Database Design
 ![Database Design](images/db-design.png)
@@ -86,6 +93,38 @@ $ npm run dev
 
 ## Usage
 REST API is used for JajanJalan Application front-end
+
+## API Endpoints
+List of available routes:
+
+**Authentication routes**:\
+`POST /users/register` - register\
+`POST /users/login` - login\
+`POST /users/logout` - logout\
+`GET /users/:userId` - detail user\
+`PATCH /users/:userId` - update user
+
+**Penjual routes**:\
+`POST /penjual/create` - create penjual\
+`GET /penjual` - get all penjual\
+`GET /penjual/penjualId` - get by penjual id\
+`PATCH /penjual/penjualId` - update penjual\
+`DELETE /penjual/penjualId` - delete penjual
+
+**Menu routes**:\
+`POST /menu/create` - create menu\
+`GET /menu` - get all menu\
+`GET /menu/menuId` - get by menu id\
+`GET /menu/penjual/penjualId` - get by penjual id\
+`GET /menu/search?item=namaMakanan` - search menu\
+`PATCH /menu/menuId` - update menu\
+`DELETE /menu/menuId` - delete menu
+
+**Review routes**:\
+`POST /review/create` - create review\
+`GET /review` - get all review\
+`GET /review/penjual/penjualId` - get by penjual id\
+`PATCH /review/:id` - update review
 
 ## Contact
 - Asya'ri - [LinkedIn](https://www.linkedin.com/in/asyari1)
