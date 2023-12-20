@@ -23,11 +23,14 @@ const RecomendationMenuByReview = async (req, res) => {
       };
     });
 
+    const avgRating = await prisma.review.aggregate({
+      _avg: {
+        rating: true,
+      },
+    });
+
     const combinedMenus = dataMenu.map((item) => item.menu).join(" ");
     const separatedWords = combinedMenus.split(" ");
-
-    console.log(`combinedMenus: ${combinedMenus}`);
-    console.log(`separatedWords: ${separatedWords}`);
 
     const similarMenu = await prisma.menu.findMany({
       where: {
@@ -52,20 +55,46 @@ const RecomendationMenuByReview = async (req, res) => {
         penjual: {
           select: {
             name: true,
+            address: true,
+            phone: true,
+            lat: true,
+            lon: true,
+            isOpen: true,
+            description: true,
           },
         },
       },
     });
+
+    if (reviewMenu.length === 0) {
+      return res.status(200).json({
+        status: "success",
+        data: [],
+      });
+    }
 
     res.status(200).json({
       status: "success",
       data: similarMenu.map((item) => {
         return {
           id: item.id,
-          item: item.item,
-          price: item.price,
-          image: item.image,
-          penjual_name: item.penjual.name,
+          penjualId: item.penjualId,
+          menu: {
+            item: item.item,
+            price: item.price,
+            description: item.description,
+            image: item.image,
+            rating: parseFloat(avgRating._avg.rating),
+          },
+          penjual: {
+            name: item.penjual.name,
+            address: item.penjual.address,
+            phone: item.penjual.phone,
+            lat: item.penjual.lat,
+            lon: item.penjual.lon,
+            isOpen: item.penjual.isOpen,
+            description: item.penjual.description,
+          },
         };
       }),
     });
