@@ -18,7 +18,8 @@ const getAllMenu = async (req, res) => {
       },
     });
 
-    const avgRating = await prisma.review.aggregate({
+    const getAvgRating = await prisma.review.groupBy({
+      by: ["menuId"],
       _avg: {
         rating: true,
       },
@@ -27,6 +28,7 @@ const getAllMenu = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: menu.map((item) => {
+        const avgRating = getAvgRating.find((el) => el.menuId === item.id);
         return {
           id: item.id,
           penjualId: item.penjualId,
@@ -35,7 +37,9 @@ const getAllMenu = async (req, res) => {
             price: item.price,
             description: item.description,
             image: item.image,
-            rating: parseFloat(avgRating._avg.rating),
+            rating: avgRating
+              ? parseFloat(avgRating._avg.rating.toFixed(1))
+              : 0,
           },
           penjual: {
             name: item.penjual.name,

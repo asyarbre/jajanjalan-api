@@ -47,7 +47,7 @@ const getRecomenMenuByHighRating = async (req, res) => {
           price: item.price,
           description: item.description,
           image: item.image,
-          rating: avgRating ? parseFloat(avgRating._avg.rating) : 0, // Periksa apakah ada rating
+          rating: avgRating ? parseFloat(avgRating._avg.rating.toFixed(1)) : 0,
         },
         penjual: {
           name: item.penjual.name,
