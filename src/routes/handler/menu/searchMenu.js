@@ -25,15 +25,41 @@ const searchMenu = async (req, res) => {
       },
     });
 
-    const avgRating = await prisma.review.aggregate({
+    const getAvgRating = await prisma.review.groupBy({
+      by: ["menuId"],
       _avg: {
         rating: true,
       },
     });
 
+    const data = menu.map((item) => {
+      const avgRating = getAvgRating.find((el) => el.menuId === item.id);
+      return {
+        id: item.id,
+        penjualId: item.penjualId,
+        menu: {
+          item: item.item,
+          price: item.price,
+          description: item.description,
+          image: item.image,
+          rating: avgRating ? parseFloat(avgRating._avg.rating.toFixed(1)) : 0,
+        },
+        penjual: {
+          name: item.penjual.name,
+          address: item.penjual.address,
+          phone: item.penjual.phone,
+          lat: item.penjual.lat,
+          lon: item.penjual.lon,
+          isOpen: item.penjual.isOpen,
+          description: item.penjual.description,
+        },
+      };
+    });
+
     res.json({
       status: "success",
       data: menu.map((item) => {
+        const avgRating = getAvgRating.find((el) => el.menuId === item.id);
         return {
           id: item.id,
           penjualId: item.penjualId,
@@ -42,7 +68,10 @@ const searchMenu = async (req, res) => {
             price: item.price,
             description: item.description,
             image: item.image,
-            rating: parseFloat(avgRating._avg.rating),
+            //limit 1 number after comma
+            rating: avgRating
+              ? parseFloat(avgRating._avg.rating.toFixed(1))
+              : 0,
           },
           penjual: {
             name: item.penjual.name,

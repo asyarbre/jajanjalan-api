@@ -87,16 +87,18 @@ const RecomendationMenuByReview = async (req, res) => {
           (el) => el.menuId === item.id
         );
         return {
+          id: item.id,
+          penjualId: item.penjualId,
           menu: {
-            id: item.id,
             item: item.item,
             price: item.price,
             description: item.description,
             image: item.image,
-            rating: ratingAvg ? parseFloat(ratingAvg._avg.rating) : 0,
+            rating: avgRating
+              ? parseFloat(avgRating._avg.rating.toFixed(1))
+              : 0,
           },
           penjual: {
-            id: item.penjualId,
             name: item.penjual.name,
             address: item.penjual.address,
             phone: item.penjual.phone,
